@@ -55,5 +55,9 @@ void Systick_Handler(void) {
         pressTime++;                  // Increment press time if button is pressed
     }
 }
-
+void GPIO_Handler(void) {
+    if (GPIO_PORTF_RIS_R & 0x10) {   // If interrupt is from PF4 (button press)
+        buttonPressed = 1;            // Mark button as pressed
+        GPIO_PORTF_ICR_R |= 0x10;    // Clear the interrupt
+    }
 
