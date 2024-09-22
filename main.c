@@ -31,5 +31,8 @@ void init(void) {
 
     NVIC_EN0_R = 0x40000000;         // Enable interrupt in NVIC
 }
-
+void Systick_Init(void) {
+    NVIC_ST_RELOAD_R = count - 1;    // Set reload value
+    NVIC_ST_CTRL_R = 0x07;            // Enable SysTick with core clock
+}
 
