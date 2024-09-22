@@ -8,3 +8,12 @@ void init(void);
 void Systick_Init(void);
 void GPIO_Handler(void);
 void Systick_Handler(void);
+int main(void) {
+    init();           // Initialize GPIO for switches and LED
+    Systick_Init();   // Initialize SysTick timer
+
+    while (1) {
+        // Main loop does nothing; PWM and duty cycle control handled in interrupts
+    }
+}
+
