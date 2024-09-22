@@ -60,4 +60,19 @@ void GPIO_Handler(void) {
         buttonPressed = 1;            // Mark button as pressed
         GPIO_PORTF_ICR_R |= 0x10;    // Clear the interrupt
     }
-
+  if ((GPIO_PORTF_DATA_R & 0x10) == 0x10) { // Button is released
+        if (buttonPressed) {
+            if (pressTime < 100000) { // Short press
+                if (dutyCycle < 100) {
+                    dutyCycle += 5;    // Increase duty cycle by 5%
+                }
+            } else {                   // Long press
+                if (dutyCycle > 0) {
+                    dutyCycle -= 5;    // Decrease duty cycle by 5%
+                }
+            }
+            pressTime = 0;            // Reset press time
+            buttonPressed = 0;        // Reset button press state
+        }
+    }
+}
