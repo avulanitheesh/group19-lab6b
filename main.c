@@ -4,3 +4,7 @@ volatile uint32_t dutyCycle = 50;  // Initial duty cycle: 50%
 volatile uint32_t count = 160;      // Count value for 100 kHz PWM (16 MHz clock)
 volatile uint32_t pressTime = 0;    // Time the button has been held down
 volatile uint8_t buttonPressed = 0;  // Button press detection
+void init(void);
+void Systick_Init(void);
+void GPIO_Handler(void);
+void Systick_Handler(void);
