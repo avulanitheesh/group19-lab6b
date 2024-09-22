@@ -16,4 +16,11 @@ int main(void) {
         // Main loop does nothing; PWM and duty cycle control handled in interrupts
     }
 }
+void init(void) {
+    SYSCTL_RCGCGPIO_R |= 0x20;      // Enable clock for Port F
+    GPIO_PORTF_LOCK_R = 0x4C4F434B; // Unlock Port F
+    GPIO_PORTF_CR_R = 0x10;          // Allow changes to PF4
+    GPIO_PORTF_DIR_R = 0x02;         // Set PF1 as output (LED)
+    GPIO_PORTF_DEN_R = 0x12;         // Digital enable for PF1 and PF4
+    GPIO_PORTF_PUR_R |= 0x10;        // Enable pull-up resistor for PF4
 
