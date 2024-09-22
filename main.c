@@ -36,3 +36,24 @@ void Systick_Init(void) {
     NVIC_ST_CTRL_R = 0x07;            // Enable SysTick with core clock
 }
 
+void Systick_Handler(void) {
+    static uint32_t onTime = 0; // Count for the "ON" duration
+
+    // Generate PWM signal
+    if (onTime < (dutyCycle * count) / 100) {
+        GPIO_PORTF_DATA_R |= 0x02;    // Turn on LED (PF1)
+    } else {
+        GPIO_PORTF_DATA_R &= ~0x02;   // Turn off LED (PF1)
+    }
+
+    onTime++;
+    if (onTime >= count) {
+        onTime = 0;                   // Reset onTime after reaching count
+    }
+
+    if (buttonPressed) {
+        pressTime++;                  // Increment press time if button is pressed
+    }
+}
+
+
